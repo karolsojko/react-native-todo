@@ -23,6 +23,7 @@ class App extends Component {
       dataSource: ds.cloneWithRows([])
     };
     this.handleFilter = this.handleFilter.bind(this);
+    this.handleClearComplete = this.handleClearComplete.bind(this);
     this.setSource = this.setSource.bind(this);
     this.handleAddItem = this.handleAddItem.bind(this);
     this.handleToggleAllComplete = this.handleToggleAllComplete.bind(this);
@@ -63,6 +64,10 @@ class App extends Component {
       };
     });
 
+    this.setSource(newItems, filterItems(this.state.filter, newItems));
+  }
+  handleClearComplete() {
+    const newItems = filterItems("ACTIVE", this.state.items);
     this.setSource(newItems, filterItems(this.state.filter, newItems));
   }
   handleAddItem() {
@@ -113,6 +118,7 @@ class App extends Component {
           count={filterItems("ACTIVE", this.state.items).length}
           filter={this.state.filter}
           onFilter={this.handleFilter}
+          onClearComplete={this.handleClearComplete}
         />
       </View>
     );
